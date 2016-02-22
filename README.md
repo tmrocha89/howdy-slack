@@ -1,2 +1,2 @@
-# howdy-slack
+# botkit-slack
 testing
