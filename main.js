@@ -9,6 +9,7 @@ var Botkit = require('botkit');
 var controller = Botkit.slackbot();
 var bot = controller.spawn({
   token: process.env.TokenSlack
+  scope: 'groups:read'
 });
 
 var Credenciais = null;
@@ -73,6 +74,26 @@ controller.hears(['what is my name','who am i'],'direct_message,direct_mention,m
     });
 });
 
+
+controller.hears(['lista os canais'],'direct_message,direct_mention',function(bot,message){
+ 
+  bot.reply(message,' let me see');
+  bot.api.channels.list({},function(err,response) {
+    console.log(response);
+      bot.reply(message, "Resposta= " + response);
+  });
+
+  bot.api.groups.list({},function(err,response) {
+    console.log(response);
+      bot.reply(message, "Resposta= " + response);
+  });
+
+  bot.api.groups.open({channel:'G0NQW6TC1'}, function(bot,message){
+      console.log("a tentar entrar no canal");
+      console.log(message);
+  });
+
+});
 
 
 controller.hears(['talk'],'direct_message,direct_mention,mention',function(bot, message) {
@@ -177,7 +198,7 @@ var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 
 
 	// Load client secrets from a local file.
-	fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+var lixo =	fs.readFile('client_secret.json', function processClientSecrets(err, content) {
 	  if (err) {
 	    console.log('Error loading client secret file: ' + err);
 	    return;
